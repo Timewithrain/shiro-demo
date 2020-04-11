@@ -8,6 +8,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
@@ -52,5 +53,11 @@ public class IndexController {
     @RequestMapping("/user/update")
     public String update(){
         return "/user/update";
+    }
+
+    @ResponseBody
+    @RequestMapping("/noAuth")
+    public String noAuth(){
+        return "未经授权，无法访问该页面！";
     }
 }

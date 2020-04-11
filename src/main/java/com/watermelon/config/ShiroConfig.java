@@ -40,12 +40,18 @@ public class ShiroConfig {
          * role: 拥有特定角色权限后即可访问
          */
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
+
+        filterMap.put("/user/add","perms[user:add]");
+
 //        filterMap.put("/user/add","authc");
         //usr路径下的所有页面都进行验证拦截
         filterMap.put("/user/*","authc");
+        //设置拦截路径和拦截方式，用户访问包含在filterMap中的任何路径都会进行其相应的验证
         bean.setFilterChainDefinitionMap(filterMap);
         //设置登录url,当没有权限时默认跳转至登陆页面
         bean.setLoginUrl("/toLogin");
+        //设置未验证时跳转至noAuth页面
+        bean.setUnauthorizedUrl("/noAuth");
 
         return bean;
     }
