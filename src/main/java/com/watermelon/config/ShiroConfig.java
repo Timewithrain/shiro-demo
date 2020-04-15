@@ -14,20 +14,20 @@ public class ShiroConfig {
 
 
     //通过Spring对UserRealm对象进行托管
-    @Bean(name="userRealm")
-    public UserRealm userRealm(){
+    @Bean(name = "userRealm")
+    public UserRealm userRealm() {
         return new UserRealm();
     }
 
-    @Bean(name="securityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
+    @Bean(name = "securityManager")
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
         return securityManager;
     }
 
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager defaultWebSecurityManager){
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         //设置安全管理器
         bean.setSecurityManager(defaultWebSecurityManager);
@@ -41,11 +41,11 @@ public class ShiroConfig {
          */
         Map<String, String> filterMap = new LinkedHashMap<String, String>();
 
-        filterMap.put("/user/add","perms[user:add]");
+        filterMap.put("/user/add", "perms[user:add]");
 
 //        filterMap.put("/user/add","authc");
         //usr路径下的所有页面都进行验证拦截
-        filterMap.put("/user/*","authc");
+        filterMap.put("/user/*", "authc");
         //设置拦截路径和拦截方式，用户访问包含在filterMap中的任何路径都会进行其相应的验证
         bean.setFilterChainDefinitionMap(filterMap);
         //设置登录url,当没有权限时默认跳转至登陆页面
